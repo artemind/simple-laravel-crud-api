@@ -25,27 +25,9 @@ A simple TODO list API built with Laravel, providing basic CRUD (Create, Read, U
 - Edit tasks
 - Delete tasks
 
-## API Routes
+## API Documentation
 
-The following API routes are available:
-
-| Method | Endpoint                     | Description         |
-|--------|------------------------------|---------------------|
-| POST   | `/api/sign-up`               | Sign Up             |
-| POST   | `/api/sign-in`               | Sign In             |
-| POST   | `/api/sign-out`              | Sign Out            |
-| ------ | -------------------          | ------------------- |
-| GET    | `/api/lists`                 | Get lists           |
-| POST   | `/api/lists`                 | Create a list       |
-| GET    | `/api/lists/{id}`            | Get a single list   |
-| PUT    | `/api/lists/{id}`            | Update a list       |
-| DELETE | `/api/lists/{id}`            | Delete a list       |
-| ------ | -------------------          | ------------------- |
-| GET    | `/api/lists/{id}/tasks`      | Get tasks           |
-| POST   | `/api/lists/{id}/tasks`      | Create a task       |
-| GET    | `/api/lists/{id}/tasks/{id}` | Get a single task   |
-| PUT    | `/api/lists/{id}/tasks/{id}` | Update a task       |
-| DELETE | `/api/lists/{id}/tasks/{id}` | Delete a task       |
+[![Swagger UI](https://img.shields.io/badge/API%20Docs-SwaggerUI-brightgreen)](https://petstore.swagger.io/?url=https%3A%2F%2Fartemind.github.io%2Fsimple-laravel-crud-api%2Fapi-docs.json)
 
 
 ## 👨‍💻 Author
