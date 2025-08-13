@@ -48,3 +48,9 @@ The following API routes are available:
 | DELETE | `/api/lists/{id}/tasks/{id}` | Delete a task       |
 
 
+## 👨‍💻 Author
+
+**Artem Yeremenko**
+
+- Website: [artemind.dev](https://artemind.dev)
+- GitHub: [@artemind](https://github.com/artemind)
