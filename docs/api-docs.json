@@ -1,0 +1,1072 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel TODO List API",
+        "description": "Laravel TODO List API Docs",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/"
+        }
+    ],
+    "paths": {
+        "/api/sign-in": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "description": "Sign In",
+                "operationId": "f782ce7069193ddf7533ac6a88dcd37e",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SignInRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "description": "Auth token",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Http422"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Http401"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sign-out": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "description": "Sign Out",
+                "operationId": "e866b4f8c1868cb7ed79d5cc8e58f32b",
+                "responses": {
+                    "204": {
+                        "description": "Success response"
+                    }
+                }
+            }
+        },
+        "/api/sign-up": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "description": "Sign Up",
+                "operationId": "1192ebd1e7aa5601c5b327ee0a82fad8",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SignUpRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "description": "Auth token",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Http422"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/lists/{list}/tasks": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "description": "Get task list",
+                "operationId": "fb3d8c58baaa7b74691cb680da8d8dd1",
+                "parameters": [
+                    {
+                        "name": "list",
+                        "in": "path",
+                        "description": "List id",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "filters[include_completed]",
+                        "in": "query",
+                        "description": "Filter by task completion status",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "example": true
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "description": "Task resource",
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/TaskResource"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/Meta"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Http422"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Tasks"
+                ],
+                "description": "Create Task",
+                "operationId": "7494c941df538c6b8fed9e7979259fae",
+                "parameters": [
+                    {
+                        "name": "list",
+                        "in": "path",
+                        "description": "List id",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/TaskResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Http422"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/lists/{list}/tasks/{task}": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "description": "Get task by id",
+                "operationId": "ac935a452a58ac55550b914a938dfe65",
+                "parameters": [
+                    {
+                        "name": "list",
+                        "in": "path",
+                        "description": "List id",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "task",
+                        "in": "path",
+                        "description": "Task id",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/TaskResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Task not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Http404"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Http422"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Tasks"
+                ],
+                "description": "Update Task by id",
+                "operationId": "ede4f86b0f183060180e8aeb921a8d05",
+                "parameters": [
+                    {
+                        "name": "list",
+                        "in": "path",
+                        "description": "List id",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "task",
+                        "in": "path",
+                        "description": "Task id",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/TaskResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Http422"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Tasks"
+                ],
+                "description": "Delete task by id",
+                "operationId": "5e774bfd8a8d113934df45869ca799e7",
+                "parameters": [
+                    {
+                        "name": "list",
+                        "in": "path",
+                        "description": "List id",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "task",
+                        "in": "path",
+                        "description": "Task id",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Success response"
+                    },
+                    "404": {
+                        "description": "Task not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Http404"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/lists": {
+            "get": {
+                "tags": [
+                    "Lists"
+                ],
+                "description": "Get lists",
+                "operationId": "019c6158ed6f2b669c573869e41e5dbb",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "description": "List resource",
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/TaskListResource"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/Meta"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Http422"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Lists"
+                ],
+                "description": "Create List",
+                "operationId": "b165138a24e543e178d2ba5b1afcfe46",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskListStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/TaskListResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Http422"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/lists/{list}": {
+            "get": {
+                "tags": [
+                    "Lists"
+                ],
+                "description": "Get list by id",
+                "operationId": "685e73d34ffb749d6403e31084de2498",
+                "parameters": [
+                    {
+                        "name": "list",
+                        "in": "path",
+                        "description": "List id",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/TaskListResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "List not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Http404"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Http422"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Lists"
+                ],
+                "description": "Update List by id",
+                "operationId": "ba187ccc6ce361c7ad8a2ccd412051e1",
+                "parameters": [
+                    {
+                        "name": "list",
+                        "in": "path",
+                        "description": "List id",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskListUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/TaskListResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Http422"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Lists"
+                ],
+                "description": "Delete list by id",
+                "operationId": "d836643f98248c699367b54a59f69e51",
+                "parameters": [
+                    {
+                        "name": "list",
+                        "in": "path",
+                        "description": "List id",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Success response"
+                    },
+                    "404": {
+                        "description": "List not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Http404"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Http422": {
+                "title": "HTTP Unprocessable Entity",
+                "description": "Validation error",
+                "required": [
+                    "message",
+                    "errors"
+                ],
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "The given data was invalid."
+                    },
+                    "errors": {
+                        "properties": {
+                            "field_name": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "example": "validation.exists"
+                                }
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "Http404": {
+                "title": "HTTP Not Found",
+                "description": "Represents the response for a 404 HTTP error indicating that the requested resource was not found.",
+                "required": [
+                    "message"
+                ],
+                "properties": {
+                    "message": {
+                        "description": "A detailed message explaining that no query results were found for the specified model.",
+                        "type": "string",
+                        "example": "No query results for model."
+                    },
+                    "exception": {
+                        "description": "The exception class that was thrown, typically a NotFoundHttpException in Laravel for 404 errors.",
+                        "type": "string",
+                        "example": "Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException"
+                    },
+                    "file": {
+                        "description": "The path of the PHP file where the exception was thrown.",
+                        "type": "string",
+                        "example": "/var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php"
+                    },
+                    "line": {
+                        "description": "The line number in the file where the exception was thrown.",
+                        "type": "integer",
+                        "example": 385
+                    }
+                },
+                "type": "object"
+            },
+            "Http401": {
+                "title": "HTTP Not Authorized",
+                "description": "Represents the response for a 401 HTTP error indicating that the requested resource was not authorized.",
+                "required": [
+                    "message"
+                ],
+                "properties": {
+                    "message": {
+                        "description": "A detailed message explaining that no query results were found for the specified model.",
+                        "type": "string",
+                        "example": "Unauthorized"
+                    },
+                    "exception": {
+                        "type": "string",
+                        "example": "Symfony\\Component\\HttpKernel\\Exception\\UnauthorizedHttpException"
+                    }
+                },
+                "type": "object"
+            },
+            "Meta": {
+                "title": "Meta",
+                "description": "Pagination meta information",
+                "required": [
+                    "current_page",
+                    "per_page"
+                ],
+                "properties": {
+                    "current_page": {
+                        "description": "The current page number of the paginated results",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "from": {
+                        "description": "The index of the first item on the current page",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "last_page": {
+                        "description": "The last page number in the paginated results",
+                        "type": "integer",
+                        "example": 9870
+                    },
+                    "links": {
+                        "description": "Pagination links object, including URL, label, and active status",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "url": {
+                                    "description": "URL of the paginated page",
+                                    "type": "string",
+                                    "example": "/api/path/to?page=1"
+                                },
+                                "label": {
+                                    "description": "Label of the page (e.g., page number)",
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "active": {
+                                    "description": "Whether this page link is active or not",
+                                    "type": "boolean",
+                                    "example": true
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "path": {
+                        "description": "Base path of the paginated resource (e.g., API endpoint)",
+                        "type": "string",
+                        "example": "/api/path/to"
+                    },
+                    "per_page": {
+                        "description": "The number of items displayed per page",
+                        "type": "integer",
+                        "example": 15
+                    },
+                    "to": {
+                        "description": "The index of the last item on the current page",
+                        "type": "integer",
+                        "example": 15
+                    },
+                    "total": {
+                        "description": "The total number of items across all pages",
+                        "type": "integer",
+                        "example": 148040
+                    }
+                },
+                "type": "object"
+            },
+            "SignInRequest": {
+                "title": "Sign In Request",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "test@example.com",
+                        "nullable": false
+                    },
+                    "password": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "minLength": 8,
+                        "example": "12345678",
+                        "nullable": false
+                    }
+                },
+                "type": "object"
+            },
+            "SignUpRequest": {
+                "title": "Sign In Request",
+                "required": [
+                    "email",
+                    "password",
+                    "name"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "test@example.com",
+                        "nullable": false
+                    },
+                    "password": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "minLength": 8,
+                        "example": "12345678",
+                        "nullable": false
+                    },
+                    "name": {
+                        "type": "string",
+                        "maxLength": 64,
+                        "minLength": 3,
+                        "example": "John Doe",
+                        "nullable": false
+                    }
+                },
+                "type": "object"
+            },
+            "TaskStoreRequest": {
+                "title": "Task Store Request",
+                "description": "Task store request structure",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "Task 1",
+                        "nullable": false
+                    },
+                    "description": {
+                        "type": "string",
+                        "maxLength": 2048,
+                        "example": "Description 1",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "TaskUpdateRequest": {
+                "title": "Task Update Request",
+                "description": "Task update request structure",
+                "required": [
+                    "name",
+                    "is_completed"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "Task 1",
+                        "nullable": false
+                    },
+                    "description": {
+                        "type": "string",
+                        "maxLength": 2048,
+                        "example": "Description 1",
+                        "nullable": true
+                    },
+                    "is_completed": {
+                        "type": "boolean",
+                        "example": true,
+                        "nullable": false
+                    }
+                },
+                "type": "object"
+            },
+            "TaskListStoreRequest": {
+                "title": "Task List Store Request",
+                "description": "Task list store request structure",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "Task 1",
+                        "nullable": false
+                    },
+                    "description": {
+                        "type": "string",
+                        "maxLength": 2048,
+                        "example": "Description 1",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "TaskListUpdateRequest": {
+                "title": "Task List Update Request",
+                "description": "Task list update request structure",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "Task 1",
+                        "nullable": false
+                    },
+                    "description": {
+                        "type": "string",
+                        "maxLength": 2048,
+                        "example": "Description 1",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "TaskListResource": {
+                "title": "Task List",
+                "description": "Task list response structure",
+                "required": [
+                    "id",
+                    "name",
+                    "created_at"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "List id",
+                        "type": "numeric",
+                        "example": 1,
+                        "nullable": false
+                    },
+                    "name": {
+                        "description": "List name",
+                        "type": "string",
+                        "example": "List 1",
+                        "nullable": false
+                    },
+                    "description": {
+                        "description": "List description",
+                        "type": "string",
+                        "example": "This is list description",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "description": "Task creation date",
+                        "type": "string",
+                        "example": "2025-02-20 00:00:00",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "TaskResource": {
+                "title": "Task",
+                "description": "Task item response structure",
+                "required": [
+                    "id",
+                    "name",
+                    "is_completed",
+                    "created_at"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Task id",
+                        "type": "numeric",
+                        "example": 1,
+                        "nullable": false
+                    },
+                    "name": {
+                        "description": "Task name",
+                        "type": "string",
+                        "example": "Task 1",
+                        "nullable": false
+                    },
+                    "description": {
+                        "description": "Task description",
+                        "type": "string",
+                        "example": "This is task description",
+                        "nullable": true
+                    },
+                    "is_completed": {
+                        "description": "Task completion marker",
+                        "type": "boolean",
+                        "example": true,
+                        "nullable": false
+                    },
+                    "created_at": {
+                        "description": "Task creation date",
+                        "type": "string",
+                        "example": "2025-02-20 00:00:00",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Tasks",
+            "description": "Tasks"
+        },
+        {
+            "name": "Lists",
+            "description": "Lists"
+        }
+    ]
+}

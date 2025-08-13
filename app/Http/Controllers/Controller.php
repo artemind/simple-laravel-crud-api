@@ -10,8 +10,8 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 #[OA\Info(
     version: "1.0.0",
-    description: "TODO List API Docs",
-    title: "TODO List API"
+    description: "Laravel TODO List API Docs",
+    title: "Laravel TODO List API"
 )]
 #[OA\Server(
     url: "http://localhost:8000/"
