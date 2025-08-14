@@ -34,5 +34,5 @@ A simple TODO list API built with Laravel, providing basic CRUD (Create, Read, U
 
 **Artem Yeremenko**
 
-- Website: [artemind.dev](https://artemind.dev)
+- Website: [artemind.dev](https://artemind.dev/?utm_source=github&utm_medium=repo_simple-laravel-crud-api&utm_campaign=personal_brand)
 - GitHub: [@artemind](https://github.com/artemind)
